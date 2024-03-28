@@ -8,7 +8,7 @@ function App() {
   return (
     <HelmetProvider>
       <Helmet titleTemplate="%s | Pizza Shop" />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </HelmetProvider>
   );
 }
