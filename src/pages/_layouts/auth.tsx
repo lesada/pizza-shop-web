@@ -13,7 +13,7 @@ function AuthLayout() {
           Partner panel © Pizza Shop {new Date().getFullYear()}
         </footer>
       </div>
-      <main className="flex flex-col items-center justify-center">
+      <main className="flex flex-col items-center justify-center relative">
         <Outlet />
       </main>
     </div>

@@ -1,5 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -18,7 +20,9 @@ function SignIn() {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<TSignInForm>();
+  } = useForm<TSignInForm>({
+    resolver: zodResolver(SignInForm),
+  });
 
   const onSubmit = async (data: TSignInForm) => {
     try {
@@ -34,7 +38,13 @@ function SignIn() {
   return (
     <>
       <Helmet title="Sign In" />
-      <div className="p-8">
+      <div className="p-8 ">
+        <Button asChild variant="ghost" className="absolute top-8 right-4">
+          <Link to={"/auth/signup"} className="text-sm text-muted-foreground">
+            New here? Sign up
+          </Link>
+        </Button>
+
         <div className="w-[350px] flex flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -52,7 +62,7 @@ function SignIn() {
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              Acessar painel
+              {isSubmitting ? "Loading..." : "Sign in"}
             </Button>
           </form>
         </div>
