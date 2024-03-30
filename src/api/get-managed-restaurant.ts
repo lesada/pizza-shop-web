@@ -4,6 +4,7 @@ type GetManagedRestaurantResponse = {
   id: number;
   email: string;
   name: string;
+  description: string;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
