@@ -29,25 +29,24 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const { mutateAsync: registerFn, isError } = useMutation({
+  const { mutateAsync: registerFn, error } = useMutation({
     mutationFn: signup,
   });
 
   const onSubmit = async (data: TSignUpForm) => {
     registerFn(data);
 
-    if (isError) toast.error("Invalid email address");
-    else {
-      toast.success(
-        "Company account created successfully. Check your email to access the partner panel.",
-        {
-          action: {
-            label: "Sign in",
-            onClick: () => navigate(`/auth/signin?email=${data.email}`),
-          },
-        }
-      );
-    }
+    if (error) return toast.error("An error occurred, please try again.");
+
+    toast.success(
+      "Company account created successfully. Check your email to access the partner panel.",
+      {
+        action: {
+          label: "Sign in",
+          onClick: () => navigate(`/auth/signin?email=${data.email}`),
+        },
+      }
+    );
   };
 
   return (
