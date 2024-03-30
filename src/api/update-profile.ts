@@ -6,6 +6,5 @@ type UpdateProfileBody = {
 };
 
 export async function updateProfile(body: UpdateProfileBody) {
-  const response = await api.put("/profile", body);
-  return response.data;
+  await api.put("/profile", body);
 }
