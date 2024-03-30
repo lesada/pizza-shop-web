@@ -17,13 +17,13 @@ import {
 } from "@/components/ui/card";
 
 const data = [
-  { data: "10/12", revenue: 4000 },
-  { data: "10/13", revenue: 3000 },
-  { data: "10/14", revenue: 2000 },
-  { data: "10/15", revenue: 2780 },
-  { data: "10/16", revenue: 1890 },
-  { data: "10/17", revenue: 2390 },
-  { data: "10/18", revenue: 3490 },
+  { date: "10/12", revenue: 4000 },
+  { date: "10/13", revenue: 3000 },
+  { date: "10/14", revenue: 2000 },
+  { date: "10/15", revenue: 2780 },
+  { date: "10/16", revenue: 1890 },
+  { date: "10/17", revenue: 2390 },
+  { date: "10/18", revenue: 3490 },
 ];
 
 const linesProps = {
@@ -42,7 +42,7 @@ function RevenueChart() {
       <CardContent>
         <ResponsiveContainer width="100%" height={240}>
           <LineChart style={{ fontSize: "12px" }} data={data}>
-            <XAxis dataKey="data" {...linesProps} dy={16} />
+            <XAxis dataKey="date" {...linesProps} dy={16} />
             <YAxis
               {...linesProps}
               tickFormatter={(value: number) =>

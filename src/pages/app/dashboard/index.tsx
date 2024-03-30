@@ -4,6 +4,7 @@ import DayOrdersAmount from "./day-orders-amount";
 import MonthCancelledOrdersAmount from "./month-canceled-orders-amount";
 import MonthOrdersAmount from "./month-orders-amount";
 import MonthRevenue from "./month-revenue";
+import PopularProducts from "./popular-products";
 import RevenueChart from "./revenue-chart";
 
 function Dashboard() {
@@ -22,6 +23,7 @@ function Dashboard() {
 
         <div className="grid grid-cols-9 gap-4">
           <RevenueChart />
+          <PopularProducts />
         </div>
       </div>
     </>
