@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { signup } from "@/api/signup";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,8 +14,8 @@ import { Label } from "@/components/ui/label";
 const SignUpForm = z.object({
   email: z.string().email(),
   managerName: z.string().min(3),
-  companyName: z.string().min(3),
-  phoneNumber: z.string().min(10),
+  restaurantName: z.string().min(3),
+  phone: z.string().min(10),
 });
 
 type TSignUpForm = z.infer<typeof SignUpForm>;
@@ -27,20 +29,24 @@ function SignUp() {
 
   const navigate = useNavigate();
 
+  const { mutateAsync: registerFn, isError } = useMutation({
+    mutationFn: signup,
+  });
+
   const onSubmit = async (data: TSignUpForm) => {
-    try {
-      console.log(data);
+    registerFn(data);
+
+    if (isError) toast.error("Invalid email address");
+    else {
       toast.success(
         "Company account created successfully. Check your email to access the partner panel.",
         {
           action: {
             label: "Sign in",
-            onClick: () => navigate("/auth/signin"),
+            onClick: () => navigate(`/auth/signin?email=${data.email}`),
           },
         }
       );
-    } catch (error) {
-      toast.error("Error creating your account. Try again.");
     }
   };
 
@@ -65,11 +71,11 @@ function SignUp() {
 
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2">
-              <Label htmlFor="companyName">Company name</Label>
+              <Label htmlFor="restaurantName">Company name</Label>
               <Input
                 type="text"
-                id="companyName"
-                {...register("companyName")}
+                id="restaurantName"
+                {...register("restaurantName")}
               />
             </div>
 
@@ -88,8 +94,8 @@ function SignUp() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Phone number</Label>
-              <Input type="tel" id="phoneNumber" {...register("phoneNumber")} />
+              <Label htmlFor="phone">Phone number</Label>
+              <Input type="tel" id="phone" {...register("phone")} />
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>

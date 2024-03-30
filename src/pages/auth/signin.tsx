@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { signin } from "@/api/signin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,22 +18,32 @@ const SignInForm = z.object({
 type TSignInForm = z.infer<typeof SignInForm>;
 
 function SignIn() {
+  const [searchParams] = useSearchParams();
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<TSignInForm>({
     resolver: zodResolver(SignInForm),
+    defaultValues: {
+      email: searchParams.get("email") || "",
+    },
+  });
+
+  const { mutateAsync: authenticate, error } = useMutation({
+    mutationFn: signin,
   });
 
   const onSubmit = async (data: TSignInForm) => {
     try {
-      console.log(data);
-      toast.success(
-        "We send you an email with the link to access the partner panel. Check your inbox!"
-      );
+      await authenticate(data);
+
+      if (error) return toast.error("Invalid email address");
+
+      toast.success("Successfully signed in");
     } catch (error) {
-      toast.error("Check your credentials and try again.");
+      toast.error("Invalid email address");
     }
   };
 
