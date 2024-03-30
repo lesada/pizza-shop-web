@@ -9,3 +9,14 @@ export const api = axios.create({
   },
   withCredentials: true,
 });
+
+if (env.VITE_ENABLE_API_DELAY) {
+  api.interceptors.response.use(
+    (response) =>
+      new Promise((resolve) => setTimeout(() => resolve(response), 1000)),
+    (error) =>
+      Promise.reject(
+        new Promise((resolve) => setTimeout(() => resolve(error), 1000))
+      )
+  );
+}
