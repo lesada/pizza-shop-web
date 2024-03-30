@@ -1,10 +1,10 @@
 import { api } from "@/lib/axios";
 
-type GetManagedRestaurantResponse = {
+export type GetManagedRestaurantResponse = {
   id: number;
   email: string;
   name: string;
-  description: string;
+  description: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };

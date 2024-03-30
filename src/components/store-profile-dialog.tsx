@@ -1,11 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
-import { getManagedRestaurant } from "@/api/get-managed-restaurant";
+import {
+  GetManagedRestaurantResponse,
+  getManagedRestaurant,
+} from "@/api/get-managed-restaurant";
+import { updateProfile } from "@/api/update-profile";
 
 import { Button } from "./ui/button";
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -24,17 +30,51 @@ const storeProfileSchema = z.object({
 type StoreProfileFormValues = z.infer<typeof storeProfileSchema>;
 
 function StoreProfileDialog() {
+  const queryClient = useQueryClient();
+
   const { data: managedRestaurant } = useQuery({
     queryFn: getManagedRestaurant,
     queryKey: ["managedRestaurant"],
+    staleTime: Infinity,
   });
 
-  const { register } = useForm<StoreProfileFormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<StoreProfileFormValues>({
     values: {
       name: managedRestaurant?.name ?? "",
       description: managedRestaurant?.description ?? "",
     },
   });
+
+  const { mutateAsync: mutateProfile } = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: (_, { name, description }) => {
+      const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
+        "managedRestaurant",
+      ]);
+      if (!cached) return;
+      queryClient.setQueryData<GetManagedRestaurantResponse>(
+        ["managedRestaurant"],
+        {
+          ...cached,
+          name,
+          description,
+        }
+      );
+    },
+  });
+
+  async function onSubmit(values: StoreProfileFormValues) {
+    try {
+      await mutateProfile(values);
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      toast.error("Failed to update profile");
+    }
+  }
 
   return (
     <DialogContent>
@@ -44,7 +84,7 @@ function StoreProfileDialog() {
           Change your store's name, description, and other details.
         </DialogDescription>
       </DialogHeader>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
@@ -64,8 +104,10 @@ function StoreProfileDialog() {
             />
           </div>
           <DialogFooter>
-            <Button variant="outline">Cancel</Button>
-            <Button type="submit" variant="success">
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button type="submit" variant="success" disabled={isSubmitting}>
               Save
             </Button>
           </DialogFooter>
