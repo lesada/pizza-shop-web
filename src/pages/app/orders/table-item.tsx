@@ -1,26 +1,35 @@
+import { formatDistanceToNow } from "date-fns";
 import { ArrowRight, X } from "lucide-react";
 
+import { TOrder } from "@/api/get-orders";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { formatCurrency } from "@/utils/formatters";
 
 import OrderDetails from "./order-details";
+import Status from "./status";
 
-function TableItem() {
+function TableItem({ order }: { order: TOrder }) {
   return (
     <TableRow>
       <TableCell>
         <OrderDetails />
       </TableCell>
-      <TableCell className="font-mono text-xs font-medium">ORD-0001</TableCell>
-      <TableCell className="text-muted-foreground">two minutes ago</TableCell>
+      <TableCell className="font-mono text-xs font-medium">
+        {order.orderId}
+      </TableCell>
+      <TableCell className="text-muted-foreground">
+        {formatDistanceToNow(order.createdAt, { addSuffix: true })}
+      </TableCell>
       <TableCell className="text-muted-foreground">
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 bg-success rounded-full bg-slate-400" />
-          <span>Pending</span>
+          <Status status={order.status} />
         </div>
       </TableCell>
-      <TableCell>John Doe</TableCell>
-      <TableCell className="font-medium">$ 120.00</TableCell>
+      <TableCell>{order.customerName}</TableCell>
+      <TableCell className="font-medium">
+        {formatCurrency(order.total)}
+      </TableCell>
       <TableCell>
         <Button variant="outline" size="xs">
           <ArrowRight className="mr-2 h-3 w-3" />

@@ -41,7 +41,9 @@ function SignIn() {
 
       if (error) return toast.error("Invalid email address");
 
-      toast.success("Successfully signed in");
+      toast.success(
+        "Successfully signed in, check your email for the magic link"
+      );
     } catch (error) {
       toast.error("Invalid email address");
     }
