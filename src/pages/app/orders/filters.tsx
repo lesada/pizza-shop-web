@@ -29,7 +29,7 @@ function Filters() {
   const customerName = searchParams.get("customerName");
   const status = searchParams.get("status");
 
-  const { register, handleSubmit, control } = useForm<FiltersSchema>({
+  const { register, handleSubmit, control, reset } = useForm<FiltersSchema>({
     defaultValues: {
       orderId: orderId ?? "",
       customerName: customerName ?? "",
@@ -47,6 +47,17 @@ function Filters() {
       data.status ? prev.set("status", data.status) : prev.delete("status");
       return prev;
     });
+  }
+
+  function clearFilters() {
+    setSearchParams((prev) => {
+      prev.delete("orderId");
+      prev.delete("customerName");
+      prev.set("status", "all");
+      return prev;
+    });
+
+    reset();
   }
 
   return (
@@ -90,7 +101,7 @@ function Filters() {
         Filter Results
       </Button>
 
-      <Button type="button" size="xs" variant="outline">
+      <Button type="button" size="xs" variant="outline" onClick={clearFilters}>
         <X className="h-4 w-4 mr-2" />
         Clear Filters
       </Button>
