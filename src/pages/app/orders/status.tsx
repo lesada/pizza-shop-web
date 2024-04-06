@@ -1,6 +1,6 @@
-import { TOrder } from "@/api/get-orders";
+import { TStatus } from "@/types/status";
 
-function Status({ status }: { status: TOrder["status"] }) {
+function Status({ status }: { status: TStatus }) {
   switch (status) {
     case "pending":
       return (

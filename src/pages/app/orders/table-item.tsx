@@ -13,7 +13,7 @@ function TableItem({ order }: { order: TOrder }) {
   return (
     <TableRow>
       <TableCell>
-        <OrderDetails />
+        <OrderDetails orderId={order.orderId} />
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
         {order.orderId}
@@ -28,7 +28,7 @@ function TableItem({ order }: { order: TOrder }) {
       </TableCell>
       <TableCell>{order.customerName}</TableCell>
       <TableCell className="font-medium">
-        {formatCurrency(order.total)}
+        {formatCurrency(order.total / 100)}
       </TableCell>
       <TableCell>
         <Button variant="outline" size="xs">

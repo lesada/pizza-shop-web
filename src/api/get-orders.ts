@@ -1,9 +1,10 @@
 import { api } from "@/lib/axios";
+import { TStatus } from "@/types/status";
 
 export type TOrder = {
   orderId: string;
   createdAt: Date;
-  status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+  status: TStatus;
   customerName: string;
   total: number;
 };
