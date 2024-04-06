@@ -3,13 +3,7 @@ import { api } from "@/lib/axios";
 export type TOrder = {
   orderId: string;
   createdAt: Date;
-  status:
-    | "pending"
-    | "completed"
-    | "canceled"
-    | "processing"
-    | "delivering"
-    | "delivered";
+  status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
   customerName: string;
   total: number;
 };

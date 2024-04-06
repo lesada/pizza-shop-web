@@ -35,7 +35,7 @@ function Orders() {
         pageIndex: Number(pageIndex),
         customerName,
         orderId,
-        status,
+        status: status === "all" ? null : status,
       }),
   });
 
