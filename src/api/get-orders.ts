@@ -25,12 +25,23 @@ type GetOrdersResponse = {
 
 type GetOrdersParams = {
   pageIndex?: number;
+  orderId?: string | null;
+  customerName?: string | null;
+  status?: string | null;
 };
 
-export async function getOrders({ pageIndex = 0 }: GetOrdersParams) {
+export async function getOrders({
+  pageIndex = 0,
+  customerName,
+  orderId,
+  status,
+}: GetOrdersParams) {
   const response = await api.get<GetOrdersResponse>("/orders", {
     params: {
       pageIndex,
+      customerName,
+      orderId,
+      status,
     },
   });
   return response.data;
