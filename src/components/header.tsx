@@ -16,7 +16,7 @@ function Header() {
             to="/"
             className={({ isActive }) => {
               return (
-                "flex items-center gap-1.5 text-sm font-medium hover:text-foreground" +
+                "flex items-center gap-1.5 text-sm font-medium hover:text-foreground " +
                 (isActive ? "text-foreground" : "text-muted-foreground")
               );
             }}
@@ -27,7 +27,12 @@ function Header() {
 
           <NavLink
             to="/orders"
-            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground"
+            className={({ isActive }) => {
+              return (
+                "flex items-center gap-1.5 text-sm font-medium hover:text-foreground " +
+                (isActive ? "text-foreground" : "text-muted-foreground")
+              );
+            }}
           >
             <UtensilsCrossed className="h-4 w-4" />
             Orders

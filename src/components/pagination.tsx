@@ -11,9 +11,15 @@ type PaginationProps = {
   pageIndex: number;
   totalCount: number;
   perPage: number;
+  onPageChange: (pageIndex: number) => void | Promise<void>;
 };
 
-function Pagination({ pageIndex, totalCount, perPage }: PaginationProps) {
+function Pagination({
+  pageIndex,
+  totalCount,
+  perPage,
+  onPageChange,
+}: PaginationProps) {
   const pages = Math.ceil(totalCount / perPage) || 1;
 
   return (
@@ -31,7 +37,7 @@ function Pagination({ pageIndex, totalCount, perPage }: PaginationProps) {
           <Button
             variant="outline"
             disabled={pageIndex === 0}
-            onClick={() => console.log("First page")}
+            onClick={() => onPageChange(0)}
             className="h-8 w-8 p-0"
           >
             <ChevronsLeft className="w-4 h-4" />
@@ -41,7 +47,7 @@ function Pagination({ pageIndex, totalCount, perPage }: PaginationProps) {
           <Button
             variant="outline"
             disabled={pageIndex === 0}
-            onClick={() => console.log("Previous page")}
+            onClick={() => onPageChange(pageIndex - 1)}
             className="h-8 w-8 p-0"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -51,7 +57,7 @@ function Pagination({ pageIndex, totalCount, perPage }: PaginationProps) {
           <Button
             variant="outline"
             disabled={pageIndex === pages - 1}
-            onClick={() => console.log("Next page")}
+            onClick={() => onPageChange(pageIndex + 1)}
             className="h-8 w-8 p-0"
           >
             <ChevronRight className="w-4 h-4" />
@@ -61,7 +67,7 @@ function Pagination({ pageIndex, totalCount, perPage }: PaginationProps) {
           <Button
             variant="outline"
             disabled={pageIndex === pages - 1}
-            onClick={() => console.log("Last page")}
+            onClick={() => onPageChange(pages - 1)}
             className="h-8 w-8 p-0"
           >
             <ChevronsRight className="w-4 h-4" />
