@@ -4,8 +4,10 @@ import { CircleAlert } from "lucide-react";
 import { getMonthCanceledOrdersAmount } from "@/api/get-month-canceled-orders-amount";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import MetricCardSkeleton from "./metric-card-skeleton";
+
 function MonthCancelledOrdersAmount() {
-  const { data: monthCanceledOrdersAmount } = useQuery({
+  const { data: monthCanceledOrdersAmount, isLoading } = useQuery({
     queryKey: ["month-canceled-orders-amount", "metrics"],
     queryFn: getMonthCanceledOrdersAmount,
   });
@@ -19,7 +21,9 @@ function MonthCancelledOrdersAmount() {
         <CircleAlert className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-2">
-        {monthCanceledOrdersAmount && (
+        {!monthCanceledOrdersAmount || isLoading ? (
+          <MetricCardSkeleton />
+        ) : (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {monthCanceledOrdersAmount.amount.toLocaleString("en-US")}

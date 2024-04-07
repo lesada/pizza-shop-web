@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { subDays } from "date-fns";
+import { Loader2 } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import {
   CartesianGrid,
@@ -65,7 +66,7 @@ function RevenueChart() {
       </CardHeader>
 
       <CardContent>
-        {dailyRevenueInPeriod && (
+        {dailyRevenueInPeriod ? (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart style={{ fontSize: "12px" }} data={chartData}>
               <XAxis dataKey="date" {...linesProps} dy={16} />
@@ -88,6 +89,10 @@ function RevenueChart() {
               <CartesianGrid vertical={false} className="stroke-muted" />
             </LineChart>
           </ResponsiveContainer>
+        ) : (
+          <div className="h-[240px] flex w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 text-muted-foreground animate-spin" />
+          </div>
         )}
       </CardContent>
     </Card>

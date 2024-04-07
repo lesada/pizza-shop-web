@@ -5,8 +5,10 @@ import { getMonthRevenue } from "@/api/get-month-revenue";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/utils/formatters";
 
+import MetricCardSkeleton from "./metric-card-skeleton";
+
 function MonthRevenue() {
-  const { data: monthRevenue } = useQuery({
+  const { data: monthRevenue, isLoading } = useQuery({
     queryKey: ["month-revenue", "metrics"],
     queryFn: getMonthRevenue,
   });
@@ -20,7 +22,9 @@ function MonthRevenue() {
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-2">
-        {monthRevenue && (
+        {!monthRevenue || isLoading ? (
+          <MetricCardSkeleton />
+        ) : (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {formatCurrency(monthRevenue.receipt / 100)}
