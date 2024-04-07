@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { subDays } from "date-fns";
@@ -45,6 +45,13 @@ function RevenueChart() {
       }),
   });
 
+  const chartData = useMemo(() => {
+    return dailyRevenueInPeriod?.map((item) => ({
+      date: item.date,
+      receipt: item.receipt / 100,
+    }));
+  }, [dailyRevenueInPeriod]);
+
   return (
     <Card className="col-span-6">
       <CardHeader className="pb-8">
@@ -60,7 +67,7 @@ function RevenueChart() {
       <CardContent>
         {dailyRevenueInPeriod && (
           <ResponsiveContainer width="100%" height={240}>
-            <LineChart style={{ fontSize: "12px" }} data={dailyRevenueInPeriod}>
+            <LineChart style={{ fontSize: "12px" }} data={chartData}>
               <XAxis dataKey="date" {...linesProps} dy={16} />
               <YAxis
                 {...linesProps}
