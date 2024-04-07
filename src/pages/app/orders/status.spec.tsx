@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import Status from "./status";
 
 describe("Order Status", () => {
-  it("should display the right test and class based on the order status", () => {
+  it("should display the right text and class based on the order status", () => {
     // Pending
     const wrapper = render(<Status status="pending" />);
 
