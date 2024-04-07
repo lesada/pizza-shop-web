@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 
 import Filters from "./filters";
+import OrderTableSkeleton from "./order-table-skeleton";
 import TableItem from "./table-item";
 
 function Orders() {
@@ -28,7 +29,7 @@ function Orders() {
     .transform((page) => page - 1)
     .parse(searchParams.get("page") ?? "1");
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading } = useQuery({
     queryKey: ["orders", pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
@@ -70,6 +71,8 @@ function Orders() {
             </TableRow>
           </TableHeader>
           <TableBody>
+            {isLoading && <OrderTableSkeleton />}
+
             {result?.orders.map((order) => (
               <TableItem key={order.orderId} order={order} />
             ))}

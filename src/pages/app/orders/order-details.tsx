@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/table";
 import { formatCurrency } from "@/utils/formatters";
 
+import OrderDetailsSkeleton from "./order-details-skeleton";
 import Status from "./status";
 
 function OrderDetails({ orderId }: { orderId: string }) {
@@ -51,7 +52,7 @@ function OrderDetails({ orderId }: { orderId: string }) {
           <DialogDescription> Order: {orderId}</DialogDescription>
         </DialogHeader>
 
-        {details && (
+        {details ? (
           <div className="space-y-4">
             <Table>
               <TableBody>
@@ -135,6 +136,8 @@ function OrderDetails({ orderId }: { orderId: string }) {
               </TableFooter>
             </Table>
           </div>
+        ) : (
+          <OrderDetailsSkeleton />
         )}
       </DialogContent>
     </Dialog>
