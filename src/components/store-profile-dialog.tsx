@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import {
   getManagedRestaurant,
 } from "@/api/get-managed-restaurant";
 import { updateProfile } from "@/api/update-profile";
+import { queryClient } from "@/lib/react-query";
 
 import { Button } from "./ui/button";
 import {
@@ -30,8 +31,6 @@ const storeProfileSchema = z.object({
 type StoreProfileFormValues = z.infer<typeof storeProfileSchema>;
 
 function StoreProfileDialog() {
-  const queryClient = useQueryClient();
-
   const { data: managedRestaurant } = useQuery({
     queryFn: getManagedRestaurant,
     queryKey: ["managedRestaurant"],

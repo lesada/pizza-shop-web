@@ -9,7 +9,7 @@ export type TOrder = {
   total: number;
 };
 
-type GetOrdersResponse = {
+export type GetOrdersResponse = {
   orders: TOrder[];
   meta: {
     pageIndex: number;

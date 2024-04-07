@@ -1,15 +1,44 @@
+import { useMutation } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ArrowRight, X } from "lucide-react";
 
-import { TOrder } from "@/api/get-orders";
+import { cancelOrder } from "@/api/cancel-order";
+import { GetOrdersResponse, TOrder } from "@/api/get-orders";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { queryClient } from "@/lib/react-query";
 import { formatCurrency } from "@/utils/formatters";
 
 import OrderDetails from "./order-details";
 import Status from "./status";
 
 function TableItem({ order }: { order: TOrder }) {
+  const { mutateAsync: cancelOrderFn } = useMutation({
+    mutationFn: cancelOrder,
+    onSuccess(_, { orderId }) {
+      const ordersListCached = queryClient.getQueriesData<GetOrdersResponse>({
+        queryKey: ["orders"],
+      });
+
+      ordersListCached?.forEach(([cacheKey, cacheData]) => {
+        if (!cacheData) return;
+
+        queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
+          ...cacheData,
+          orders: cacheData.orders.map((order) => {
+            if (order.orderId === orderId) {
+              return {
+                ...order,
+                status: "canceled",
+              };
+            }
+            return order;
+          }),
+        });
+      });
+    },
+  });
+
   return (
     <TableRow>
       <TableCell>
@@ -37,7 +66,12 @@ function TableItem({ order }: { order: TOrder }) {
         </Button>
       </TableCell>
       <TableCell>
-        <Button variant="ghost" size="xs">
+        <Button
+          variant="ghost"
+          size="xs"
+          disabled={!["pending", "processing"].includes(order.status)}
+          onClick={() => cancelOrderFn({ orderId: order.orderId })}
+        >
           <X className="mr-2 h-3 w-3" />
           Cancel
         </Button>
