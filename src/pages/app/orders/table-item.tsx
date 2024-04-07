@@ -130,7 +130,9 @@ function TableItem({ order }: { order: TOrder }) {
         <Button
           variant="ghost"
           size="xs"
-          disabled={!["pending", "processing"].includes(order.status)}
+          disabled={
+            !["pending", "processing"].includes(order.status) || isCanceling
+          }
           onClick={() => cancelOrderFn({ orderId: order.orderId })}
         >
           <X className="mr-2 h-3 w-3" />
