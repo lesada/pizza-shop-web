@@ -84,7 +84,7 @@ function Filters() {
             value={value}
             name={name}
           >
-            <SelectTrigger className="w-80 h-8">
+            <SelectTrigger className="w-80 h-8" aria-label="status">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
