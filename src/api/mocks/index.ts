@@ -18,7 +18,7 @@ import { getPopularProductsMock } from "./get-popular-products-mock";
 import { getProfileMock } from "./get-profile-mock";
 import { signInMock } from "./signin-mock";
 import { signUpMock } from "./signup-mock";
-import { updateProfileMock } from "./update-profile";
+import { updateProfileMock } from "./update-profile-mock";
 
 export const worker = setupWorker(
   signInMock,
