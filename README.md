@@ -1,6 +1,6 @@
-# Pizza Shop Web
-
 ### A mock website to check data from dashboard and see your restaurant orders
+
+![image](https://github.com/lesada/pizza-shop-web/assets/68572174/87b5f5a8-eee0-4018-9c5a-041be5ec0278)
 
 ## 🧪 Technologies
 
