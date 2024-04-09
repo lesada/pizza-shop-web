@@ -34,19 +34,23 @@ function SignUp() {
   });
 
   const onSubmit = async (data: TSignUpForm) => {
-    registerFn(data);
+    try {
+      await registerFn(data);
 
-    if (error) return toast.error("An error occurred, please try again.");
+      if (error) return toast.error("An error occurred, please try again.");
 
-    toast.success(
-      "Company account created successfully. Check your email to access the partner panel.",
-      {
-        action: {
-          label: "Sign in",
-          onClick: () => navigate(`/auth/signin?email=${data.email}`),
-        },
-      }
-    );
+      toast.success(
+        "Company account created successfully. Check your email to access the partner panel.",
+        {
+          action: {
+            label: "Sign in",
+            onClick: () => navigate(`/auth/signin?email=${data.email}`),
+          },
+        }
+      );
+    } catch (e) {
+      return toast.error("An error occurred, please try again.");
+    }
   };
 
   return (

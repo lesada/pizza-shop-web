@@ -27,7 +27,7 @@ function SignIn() {
   } = useForm<TSignInForm>({
     resolver: zodResolver(SignInForm),
     defaultValues: {
-      email: searchParams.get("email") || "",
+      email: searchParams.get("email") ?? "",
     },
   });
 
