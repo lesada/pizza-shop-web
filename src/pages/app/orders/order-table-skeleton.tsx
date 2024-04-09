@@ -13,25 +13,25 @@ function OrderTableSkeleton() {
         </Button>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
-        <Skeleton className="w-[172px] h-4" />
+        <Skeleton className="w-12 h-4" />
       </TableCell>
       <TableCell className="text-muted-foreground">
-        <Skeleton className="w-[148px] h-4" />
+        <Skeleton className="w-28 h-4" />
       </TableCell>
       <TableCell className="text-muted-foreground">
-        <Skeleton className="w-[110px] h-4" />
+        <Skeleton className="w-20 h-4" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-[200px] h-4" />
+        <Skeleton className="w-48 h-4" />
       </TableCell>
       <TableCell className="font-medium">
-        <Skeleton className="w-[64px] h-4" />
+        <Skeleton className="w-16 h-4" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-[92px] h-4" />
+        <Skeleton className="w-20 h-4" />
       </TableCell>
       <TableCell>
-        <Skeleton className="w-[92px] h-4" />
+        <Skeleton className="w-20 h-4" />
       </TableCell>
     </TableRow>
   ));
