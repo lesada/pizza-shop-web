@@ -45,6 +45,7 @@ function Filters() {
         ? prev.set("customerName", data.customerName)
         : prev.delete("customerName");
       data.status ? prev.set("status", data.status) : prev.delete("status");
+      prev.set("pageIndex", "1");
       return prev;
     });
   }
@@ -89,7 +90,8 @@ function Filters() {
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="completed">Completed</SelectItem>
+              <SelectItem value="delivering">Delivering</SelectItem>
+              <SelectItem value="delivered">Delivered</SelectItem>
               <SelectItem value="canceled">Canceled</SelectItem>
             </SelectContent>
           </Select>
