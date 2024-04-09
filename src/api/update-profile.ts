@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 
-type UpdateProfileBody = {
+export type UpdateProfileBody = {
   name: string;
   description: string | null;
 };
