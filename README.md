@@ -1,30 +1,44 @@
-# React + TypeScript + Vite
+# Pizza Shop Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### A mock website to check data from dashboard and see your restaurant orders
 
-Currently, two official plugins are available:
+## 🧪 Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Front-End
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [ShadcnUI](https://ui.shadcn.com/docs)
+- [Vite](https://vitejs.dev/)
+- [TanStack Query](https://tanstack.com/query/latest)
+  
+### Tests
 
-## Expanding the ESLint configuration
+- [Vitest](https://vitest.dev/guide/)
+- [React-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+- [Jest](https://jestjs.io/pt-BR/)
+- [MSW](https://mswjs.io/)
+- [Playwright](https://playwright.dev/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Getting started
 
-- Configure the top-level `parserOptions` property like this:
+### Requisites
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- [NodeJS](https://nodejs.org/en)
+- [Git](https://git-scm.com/)
+- [Yarn](https://yarnpkg.com/) _(optional)_
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Clone the application
+
+`$ git clone https://github.com/lesada/pizza-shop-web.git`
+
+### Running the project
+
+- Enter each folder, use `npm i` or `yarn` to install all dependencies.
+- Run the aplication in dev mode using te command `npm run dev` or `yarn dev`
+- If you wish to test or check the website without setting up the server, use `npm run dev:test` or `yarn dev:test`
+**Default test port is 5432, but you can configure it.
+
+###Server
+
+You can see the main project for the server [here](https://github.com/rocketseat-education/ignite-reactjs-04-pizzashop-web)
+
