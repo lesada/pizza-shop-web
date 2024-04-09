@@ -21,7 +21,7 @@ function AppLayout() {
           if (status === 401 && code === "UNAUTHORIZED") {
             toast.error("You session has expired. Please sign in to continue.");
             navigate("/auth/signin", { replace: true });
-          }
+          } else throw error;
         }
       }
     );
