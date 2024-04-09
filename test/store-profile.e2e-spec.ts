@@ -23,5 +23,5 @@ test("update profile successfully", async ({ page }) => {
 
   await expect(page.getByRole("button", { name: "Close" })).not.toBeVisible();
 
-  expect(page.getByRole("button", { name: "Cafe Shop" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Cafe Shop" })).toBeVisible();
 });
