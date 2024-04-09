@@ -102,6 +102,4 @@ test("filter by status", async ({ page }) => {
   const tableRows = await page.getByRole("cell", { name: "Delivering" }).all();
 
   expect(tableRows.length).toBe(10);
-
-  await page.waitForTimeout(500);
 });
